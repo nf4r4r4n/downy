@@ -140,7 +140,7 @@ print_version ()
 	local white="\e[1;97m"
 	local nc="\e[0m"
 
-	echo -e "${green}Downy:${nc}\t ${white}2024.05.12${nc}"
+	echo -e "${green}Downy version:${nc}\t ${white}2024.05.12${nc}"
 	echo -e "${green}Usage:${nc}\t ${white}downy${nc}"
 }
 
@@ -151,6 +151,7 @@ upgrade_downy ()
 	start_spinner "\e[1;32mUpgrading downy\e[0m"
 	git -C $this_dir pull origin main > /dev/null 2>&1
 	stop_spinner 0
+	print_version
 }
 
 # -------------------------------------------------------------------------------------------------------------
