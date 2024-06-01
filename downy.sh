@@ -195,7 +195,6 @@ case "$media" in
 		# 	"6") audio_format="aac";;
 		# 	*) audio_format="mp3";;
 		# esac
-		# start_spinner "\e[1;97mDownloading...\e[0m"
 		yt-dlp --extract-audio --audio-format "$audio_format" $media_url #> /dev/null 2>&1
 		stop_spinner 0
 	;;
@@ -213,9 +212,7 @@ case "$media" in
 		# 	"6") video_format="flv";;
 		# 	*) video_format="mp4";;
 		# esac
-		# start_spinner "\e[1;97mDownloading...\e[0m"
 		yt-dlp --format "bestvideo[ext=$video_format]+bestaudio[ext=m4a]/best[ext=$video_format]/best" $media_url #> /dev/null 2>&1
-		stop_spinner 0
 	;;
 	*) exit 0
 	;;
