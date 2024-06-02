@@ -149,9 +149,7 @@ upgrade_downy ()
 {
 	local this_dir=$(dirname "$0")
 
-	start_spinner "\e[1;32mUpgrading downy\e[0m"
 	git -C $this_dir pull origin main > /dev/null 2>&1
-	stop_spinner 0
 	print_version
 }
 
