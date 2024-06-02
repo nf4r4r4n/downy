@@ -2,7 +2,6 @@
 
 # -------------------------------------------------------------------------------------------------------------
 this_dir=$(dirname "$0")
-source "${this_dir}/spinner.sh"
 # -------------------------------------------------------------------------------------------------------------
 
 print_banner ()
@@ -149,6 +148,7 @@ upgrade_downy ()
 {
 	local this_dir=$(dirname "$0")
 
+	echo "Upgrading..."
 	git -C $this_dir pull origin main > /dev/null 2>&1
 	print_version
 }
