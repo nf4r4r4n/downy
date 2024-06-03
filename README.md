@@ -21,7 +21,7 @@ alias downy="path/to/downy/repo/downy.sh"
 ### Release
 - Download the released package
 
-- then you can use **downy**
+Then you can use **downy**
 
 ## Usage
 - get version:
