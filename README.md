@@ -9,6 +9,7 @@ This tools is easy to use.
 - ffmpeg
 
 ## Install Downy
+### Source
 - clone this repo
 ```sh
 git clone https://github.com/nf4r4r4n/downy
@@ -17,6 +18,8 @@ git clone https://github.com/nf4r4r4n/downy
 ```sh
 alias downy="path/to/downy/repo/downy.sh"
 ```
+### Release
+- Download the released package
 - then you can use **downy**
 
 ## Usage
