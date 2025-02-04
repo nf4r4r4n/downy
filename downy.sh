@@ -2,21 +2,14 @@
 
 # -------------------------------------------------------------------------------------------------------------
 this_dir=$(dirname "$0")
-version="v1.0.0"
+version="4th Feb 2025"
 # -------------------------------------------------------------------------------------------------------------
 
 print_banner ()
 {
-	echo -e "\e[1;32m
-██████   ██████  ██     ██ ███    ██ ██    ██ 
-██   ██ ██    ██ ██     ██ ████   ██  ██  ██  
-██   ██ ██    ██ ██  █  ██ ██ ██  ██   ████   
-██   ██ ██    ██ ██ ███ ██ ██  ██ ██    ██    
-██████   ██████   ███ ███  ██   ████    ██  \e[0m
-                                                                                      
+	echo -e "                                                                                     
 \e[1;32mAuthor:\e[0m\tBaibs Fararano<baibs.fararano@gmail.com>
-\e[1;32mGithub:\e[0m\tnf4r4r4n
-\e[1;32mSpinner:\e[0m\tTasos Latsas"
+\e[1;32mGithub:\e[0m\tnf4r4r4n"
 }
 
 check_pkg_status ()
@@ -27,7 +20,7 @@ check_pkg_status ()
 	if [[ $pkg_exits = "" ]]; then
 		echo -e "❌ - $pkg"
 	elif [[ $pkg = "ffmpeg" && $pkg_exits != "" ]]; then
-		echo -e "✅ - $pkg (Version: $("$pkg" -version))"
+		echo -e "✅ - $pkg (Version: $("$pkg" -version | grep ffmpeg | awk '{printf $3}'))"
 	else 
 		echo -e "✅ - $pkg (Version: $("$pkg" --version))"
 	fi
@@ -85,47 +78,12 @@ check_requirements ()
 	fi
 }
 
-check_url ()
-{
-	local url=$1
-	local status_code=$(curl --write-out '%{http_code}' --silent --output /dev/null "${media_url}")
-
-	echo "Checking the URL..."
-	# Check the URL if it's valid
-	if [[ $status_code -ge 200 && $status_code -le 299 ]]; then
-		echo -e "\e[1;32m[OK]\e[0m\tURL is valid"
-	else
-		echo -e "\e[1;31m[WARN]\e[0m\tURL is not valid"
-		exit 1
-	fi
-}
-
 print_format ()
 {
 	local number=$1
 	local format=$2
 
 	echo -e "\e[1;32m[$number]\e[0m - $format"
-}
-
-print_audio_format ()
-{
-	print_format "1" "mp3"
-	print_format "2" "m4a"
-	print_format "3" "ogg"
-	print_format "4" "flac"
-	print_format "5" "wav"
-	print_format "6" "aac"
-}
-
-print_video_format ()
-{
-	print_format "1" "mp4"
-	print_format "2" "webm"
-	print_format "3" "avi"
-	print_format "4" "mkv"
-	print_format "5" "mov"
-	print_format "6" "flv"
 }
 
 print_title ()
@@ -157,7 +115,7 @@ upgrade_downy ()
 # -------------------------------------------------------------------------------------------------------------
 if [[ $1 = "--version" || $1 = "-V" ]]; then print_version; exit 0; fi
 if [[ $1 = "--upgrade" || $1 = "-U" ]]; then upgrade_downy; exit 0; fi
-clear
+
 print_banner
 # -------------------------------------------------------------------------------------------------------------
 
@@ -182,35 +140,10 @@ read -p ">> " media_url
 case "$media" in
 	"1") # Audio
 		audio_format="mp3"
-		# print_title "Choose the audio format"
-		# print_audio_format
-		# read -p ">> (default is 1) " audio_format
-		# case "$audio_format" in
-		# 	"1") audio_format="mp3";;
-		# 	"2") audio_format="m4a";;
-		# 	"3") audio_format="ogg";;
-		# 	"4") audio_format="flac";;
-		# 	"5") audio_format="wav";;
-		# 	"6") audio_format="aac";;
-		# 	*) audio_format="mp3";;
-		# esac
 		yt-dlp --extract-audio --audio-format "$audio_format" $media_url #> /dev/null 2>&1
-		stop_spinner 0
 	;;
 	"2") # Video
 		video_format="mp4"
-		# print_title "Choose the video format"
-		# print_video_format
-		# read -p ">> (default is 1) " video_format
-		# case "$video_format" in
-		# 	"1") video_format="mp4";;
-		# 	"2") video_format="webm";;
-		# 	"3") video_format="avi";;
-		# 	"4") video_format="mkv";;
-		# 	"5") video_format="mov";;
-		# 	"6") video_format="flv";;
-		# 	*) video_format="mp4";;
-		# esac
 		yt-dlp --format "bestvideo[ext=$video_format]+bestaudio[ext=m4a]/best[ext=$video_format]/best" $media_url #> /dev/null 2>&1
 	;;
 	*) exit 0
